@@ -1,0 +1,76 @@
+<?php
+// register.php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Store user info in the database (not implemented here)
+    
+    // Send registration confirmation email
+    $to = $email;
+    $subject = "Registration Confirmation";
+    $message = "Thank you for registering!";
+    $headers = "From: no-reply@yourdomain.com\r\n";
+
+    // Use PHPMailer to send the email
+    require 'PHPMailer/PHPMailerAutoload.php';
+    $mail = new PHPMailer;
+    $mail->isSMTP();
+    $mail->Host = 'relay.brevo.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = '7a298c001@smtp-brevo.com';
+    $mail->Password = 'Gv4hbVtJrUOZcY8K';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
+
+    $mail->setFrom('no-reply@yourdomain.com', 'Your Website');
+    $mail->addAddress($to);
+    $mail->Subject = $subject;
+    $mail->Body    = $message;
+
+    if ($mail->send()) {
+        echo "Registration successful. Please check your email.";
+    } else {
+        echo "Message could not be sent. Mailer Error: ".$mail->ErrorInfo;
+    }
+}
+?>
+<?php
+// login.php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Validate user credentials (not implemented here)
+
+    // Send login notification email
+    $to = $email;
+    $subject = "Login Notification";
+    $message = "You have logged in successfully!";
+    $headers = "From: no-reply@yourdomain.com\r\n";
+
+    // Use PHPMailer to send the email
+    require 'PHPMailer/PHPMailerAutoload.php';
+    $mail = new PHPMailer;
+    $mail->isSMTP();
+    $mail->Host = 'relay.brevo.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = '7a298c001@smtp-brevo.com';
+    $mail->Password = 'Gv4hbVtJrUOZcY8K';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
+
+    $mail->setFrom('no-reply@yourdomain.com', 'Your Website');
+    $mail->addAddress($to);
+    $mail->Subject = $subject;
+    $mail->Body    = $message;
+
+    if ($mail->send()) {
+        echo "Login successful.";
+    } else {
+        echo "Message could not be sent. Mailer Error: ".$mail->ErrorInfo;
+    }
+}
+?>
